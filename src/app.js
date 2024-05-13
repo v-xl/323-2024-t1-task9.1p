@@ -4,10 +4,10 @@ const res = require("express/lib/response");
 const app = express();
 
 var MongoClient = require('mongodb').MongoClient;
-var dbuser = process.env.DB_USER;
-var dbpass = process.env.DB_PASS;
-var dbhost = process.env.DB_HOST;
-var dbport = process.env.DB_PORT;
+var dbuser = process.env.DB_USER.trim();
+var dbpass = process.env.DB_PASS.trim();
+var dbhost = process.env.DB_HOST.trim();
+var dbport = process.env.DB_PORT.trim();
 var url = "mongodb://"+dbuser+":"+dbpass+"@"+dbhost+":"+dbport;
 
 //Functions
@@ -27,7 +27,8 @@ const saveHistory = (result) => {
     if (err) throw err;
         var dbo = db.db("mydb");
         var myobj = { result: result, timestamp: Date.now() };
-        dbo.collection("customers").insertOne(myobj, function(err, res) {
+        dbo.collection("history").insertOne(myobj, function(err, res) {
+        console.log("Saved result to database.");
         if (err) throw err;
             db.close();
         });
