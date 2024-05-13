@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:20-alpine
 WORKDIR /home/node
 COPY src/app.js /home/node/
 EXPOSE 3000
