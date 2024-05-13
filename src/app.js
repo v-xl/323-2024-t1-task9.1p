@@ -8,7 +8,7 @@ var dbuser = process.env.DB_USER;
 var dbpass = process.env.DB_PASS;
 var dbhost = process.env.DB_HOST;
 var dbport = process.env.DB_PORT;
-var url = "mongodb://"+dbuser+":"+dbpass+"@"+dbhost+":"+dbport+"/";
+var url = "mongodb://"+dbuser+":"+dbpass+"@"+dbhost+":"+dbport;
 
 //Functions
 const isValidNumber = (num) => {
@@ -29,7 +29,6 @@ const saveHistory = (result) => {
         var myobj = { result: result, timestamp: Date.now() };
         dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
-            console.log("Saved result to database.");
             db.close();
         });
     }); 
