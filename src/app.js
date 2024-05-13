@@ -8,7 +8,7 @@ var dbuser = process.env.DB_USER;
 var dbpass = process.env.DB_PASS;
 var dbhost = process.env.DB_HOST;
 var dbport = process.env.DB_PORT;
-var url = "mongodb://"+DB_USER+":"+DB_PASS+"@"+dbhost+":"+dbport+"/";
+var url = "mongodb://"+dbuser+":"+dbpass+"@"+dbhost+":"+dbport+"/";
 
 //Functions
 const isValidNumber = (num) => {
