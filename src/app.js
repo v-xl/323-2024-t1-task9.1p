@@ -23,16 +23,22 @@ const isValidNumber = (num) => {
 };
 
 const saveHistory = (result) => {
-    MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-        var dbo = db.db("mydb");
-        var myobj = { result: result, timestamp: Date.now() };
-        dbo.collection("history").insertOne(myobj, function(err, res) {
-        console.log("Saved result to database.");
-        if (err) throw err;
-            db.close();
-        });
-    }); 
+    return new Promise((resolve, reject) => {
+        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        client.connect()
+            .then(() => {
+                const db = client.db("mydb");
+                const myobj = { result: result, timestamp: Date.now() };
+                return db.collection("history").insertOne(myobj);
+            })
+            .catch((err) => {
+                console.error(err);
+                reject(err);
+            })
+            .finally(() => {
+                client.close();
+            });
+    });
 };
 
 //Addition
